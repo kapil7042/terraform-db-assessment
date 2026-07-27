@@ -13,4 +13,4 @@ Git, Terraform >= 1.0, Docker Desktop, PostgreSQL client
 Internet → ALB → ECS/Fargate → RDS
 
 ## Repository
-https://github.com/kapilsharma704220/terraform-db-assessment
+https://github.com/kapil7042/terraform-db-assessment
