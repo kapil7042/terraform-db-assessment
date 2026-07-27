@@ -25,7 +25,7 @@ BEGIN
             statuses[floor(random() * array_length(statuses, 1) + 1)],
             NOW() - (random() * INTERVAL '90 days')
         ) RETURNING id INTO booking_id;
-        
+
         IF random() < 0.3 THEN
             INSERT INTO booking_events (booking_id, event_type, payload)
             VALUES (booking_id, 'created', jsonb_build_object('source', 'web', 'timestamp', NOW()));

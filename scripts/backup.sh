@@ -18,11 +18,11 @@ export PGPASSWORD="$DB_PASSWORD"
 
 echo "Starting backup of database: $DB_NAME"
 
-pg_dump -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d "$DB_NAME" -F c | gzip > "$BACKUP_FILE"
+docker exec booking-db pg_dump -U "$DB_USER" -d "$DB_NAME" -F c | gzip > "$BACKUP_FILE"
 
 if [ $? -eq 0 ] && [ -f "$BACKUP_FILE" ]; then
     FILE_SIZE=$(du -h "$BACKUP_FILE" | cut -f1)
-    echo "✓ Backup completed successfully: $BACKUP_FILE ($FILE_SIZE)"
+    echo "✓ Backup completed: $BACKUP_FILE ($FILE_SIZE)"
     find "$BACKUP_DIR" -name "backup_${DB_NAME}_*.sql.gz" -mtime +$RETENTION_DAYS -delete
     echo "✓ Removed backups older than $RETENTION_DAYS days"
 else
@@ -30,7 +30,4 @@ else
     exit 1
 fi
 
-echo -e "\nRecent backups:"
 ls -lht "$BACKUP_DIR" | head -6
-
-echo -e "\nBackup location: $BACKUP_FILE"

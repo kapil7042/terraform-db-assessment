@@ -1,0 +1,33 @@
+name: Terraform PR Check
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'infra/**'
+
+jobs:
+  terraform:
+    name: Terraform Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0
+      
+      - name: Terraform Format
+        run: terraform fmt -check -recursive infra/
+      
+      - name: Terraform Init Dev
+        run: cd infra/envs/dev && terraform init -backend=false
+      
+      - name: Terraform Validate Dev
+        run: cd infra/envs/dev && terraform validate
+      
+      - name: Terraform Plan Dev
+        run: cd infra/envs/dev && terraform plan -refresh=false -no-color
