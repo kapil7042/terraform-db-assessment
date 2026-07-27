@@ -1,3 +1,4 @@
+# Terraform
 *.tfstate
 *.tfstate.*
 .terraform/
@@ -8,16 +9,26 @@ override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
+
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+
+# OS
 .DS_Store
 Thumbs.db
+
+# Backup files
 *.backup
 backups/*.sql.gz
+scripts/backups/
+
+# Docker
 *.log
 database/postgres_data/
+
+# Environment variables
 .env
-.env.localscripts/backups/
-scripts/backups/
+.env.local
