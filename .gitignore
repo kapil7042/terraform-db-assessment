@@ -20,3 +20,4 @@ backups/*.sql.gz
 database/postgres_data/
 .env
 .env.localscripts/backups/
+scripts/backups/
